@@ -1,0 +1,22 @@
+[
+    {
+        "function":"create",
+        "verb":"post",
+        "controller":"CartellaclinicaController"
+    },
+    {
+        "function":"get",
+        "verb":"get",
+        "controller":"CartellaclinicaController"
+    },
+    {
+        "function":"degenza",
+        "verb":"post",
+        "controller":"CartellaclinicaController"
+    },
+    {
+        "function":"cambiaconsenso",
+        "verb":"post",
+        "controller":"CartellaclinicaController"
+    }
+]

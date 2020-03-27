@@ -1,0 +1,932 @@
+Registriamo alcune identità in Fabric
+dottore1
+Store path:/home/convector/hyperledger-fabric-network/.hfc-org1
+Successfully loaded admin from persistence
+Successfully registered - sec : dottore1 with organization : dottore
+Successfully enrolled member user : dottore1
+dottore1 was successfully registered and enrolled and is ready to interact with the fabric network
+dottore2
+Store path:/home/convector/hyperledger-fabric-network/.hfc-org1
+Successfully loaded admin from persistence
+Successfully registered - sec : dottore2 with organization : dottore
+Successfully enrolled member user : dottore2
+dottore2 was successfully registered and enrolled and is ready to interact with the fabric network
+paziente1
+Store path:/home/convector/hyperledger-fabric-network/.hfc-org1
+Successfully loaded admin from persistence
+Successfully registered - sec : paziente1 with organization : paziente
+Successfully enrolled member user : paziente1
+paziente1 was successfully registered and enrolled and is ready to interact with the fabric network
+paziente2
+Store path:/home/convector/hyperledger-fabric-network/.hfc-org1
+Successfully loaded admin from persistence
+Successfully registered - sec : paziente2 with organization : paziente
+Successfully enrolled member user : paziente2
+paziente2 was successfully registered and enrolled and is ready to interact with the fabric network
+FINE
+Inseriamo alcuni dati nel database
+[hurley] - Paz11
+[hurley] - Paolo
+[hurley] - Bianchi
+[hurley] - Sending transaction as paziente1 in org org1...
+[hurley] - Transaction sent! VALID  SUCCESS 9452d0d8d9d7fe44d14cd017e08c48b2fa397957483abd936081c1350c2a535d
+[hurley] - Result: {"type":"Buffer","data":[]}
+Cleaning up event hubs
+[hurley] - Paz22
+[hurley] - Mario
+[hurley] - Rossi
+[hurley] - Sending transaction as paziente2 in org org1...
+[hurley] - Transaction sent! VALID  SUCCESS 51aa3373a0738699d86f9a277f41de75f7a026a03513d13eb2c8780509134ceb
+[hurley] - Result: {"type":"Buffer","data":[]}
+Cleaning up event hubs
+[hurley] - Dot11
+[hurley] - Giacomo
+[hurley] - Calabresi
+[hurley] - Sending transaction as dottore1 in org org1...
+[hurley] - Transaction sent! VALID  SUCCESS b9a4c195f5300c5f1ef5126b6d5c5555760934366874f39f88cf88317d62ca58
+[hurley] - Result: {"type":"Buffer","data":[]}
+Cleaning up event hubs
+[hurley] - Dot22
+[hurley] - Giuseppe
+[hurley] - Simari
+[hurley] - Sending transaction as dottore2 in org org1...
+[hurley] - Transaction sent! VALID  SUCCESS d277298f5c60ee2d4af4cbab292f3baf182138cff5f8ac6b4876f7e04a3d3dd9
+[hurley] - Result: {"type":"Buffer","data":[]}
+Cleaning up event hubs
+[hurley] - Cart11
+[hurley] - Trauma
+[hurley] - Paz11
+[hurley] - Dot11
+[hurley] - true
+[hurley] - true
+[hurley] - Sending transaction as dottore1 in org org1...
+[hurley] - Transaction sent! VALID  SUCCESS 814d314f6801f62e2768f8407e94f6cae73616ec9fa182a1be36c5eebb1f52f5
+[hurley] - Result: {"type":"Buffer","data":[]}
+Cleaning up event hubs
+[hurley] - Cart22
+[hurley] - Polmonite
+[hurley] - Paz22
+[hurley] - Dot22
+[hurley] - true
+[hurley] - true
+[hurley] - Sending transaction as dottore2 in org org1...
+[hurley] - Transaction sent! VALID  SUCCESS e7226454ca7233bbc4d69486f7c3bcb77a4dafbc4f159a5db14e4a7d89af08f9
+[hurley] - Result: {"type":"Buffer","data":[]}
+Cleaning up event hubs
+Dati inseriti correttamente
+Test get
+Dovrebbe andare a buon fine
+[hurley] - Cart11
+[hurley] - Sending transaction as dottore1 in org org1...
+[hurley] - Transaction sent! VALID  SUCCESS 0299ff0e981d24738bc4783d96d471bd9cbf46ad9f7ce92251b8e97f632dae39
+[hurley] - Result: {"_consenso":true,"_dottoreID":"Dot11","_id":"Cart11","_patologia":"Trauma","_pazienteID":"Paz11","_stato":true,"_type":"io.worldsibu.cartellaclinica"}
+Cleaning up event hubs
+°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+[hurley] - Cart11
+[hurley] - Sending transaction as paziente1 in org org1...
+[hurley] - Transaction sent! VALID  SUCCESS 43cd6e46d19391ef97a11859fa7a3d46e86d43fac5b21413ca7bc8ca2c825258
+[hurley] - Result: {"_consenso":true,"_dottoreID":"Dot11","_id":"Cart11","_patologia":"Trauma","_pazienteID":"Paz11","_stato":true,"_type":"io.worldsibu.cartellaclinica"}
+Cleaning up event hubs
+Dovrebbe dare errore
+[hurley] - Cart11
+[hurley] - Sending transaction as dottore2 in org org1...
+[hurley] - No peer ran tx successfully!
+undefined
+{ Error: transaction returned with failure: {"name":"Error","status":500,"message":"Identity 29:EE:C2:FA:47:17:DB:DC:9D:13:76:70:CA:D2:AD:8C:85:BA:49:DC is not allowed to views this certificate"}
+    at self._endorserClient.processProposal (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/fabric-client/lib/Peer.js:144:36)
+    at Object.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:1207:9)
+    at InterceptingListener._callNext (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:568:42)
+    at InterceptingListener.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:618:8)
+    at callback (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:845:24)
+  status: 500,
+  payload: <Buffer >,
+  peer: 
+   { url: 'grpc://localhost:7051',
+     name: 'peer0.org1.hurley.lab',
+     options: 
+      { 'grpc.max_receive_message_length': -1,
+        'grpc.max_send_message_length': -1,
+        'grpc.keepalive_time_ms': 600000,
+        'grpc.http2.min_time_between_pings_ms': 120000,
+        'grpc.keepalive_timeout_ms': 20000,
+        'grpc.http2.max_pings_without_data': 0,
+        'grpc.keepalive_permit_without_calls': 1,
+        name: 'peer0.org1.hurley.lab',
+        'grpc.ssl_target_name_override': 'peer0.org1.hurley.lab',
+        'grpc.default_authority': 'peer0.org1.hurley.lab' } },
+  isProposalResponse: true }
+°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+[hurley] - Cart11
+[hurley] - Sending transaction as paziente2 in org org1...
+[hurley] - No peer ran tx successfully!
+undefined
+{ Error: transaction returned with failure: {"name":"Error","status":500,"message":"Identity B2:0E:D7:C5:A0:9B:D8:4E:3F:57:A2:47:2F:D5:44:97:E5:37:25:2D is not allowed to views this certificate"}
+    at self._endorserClient.processProposal (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/fabric-client/lib/Peer.js:144:36)
+    at Object.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:1207:9)
+    at InterceptingListener._callNext (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:568:42)
+    at InterceptingListener.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:618:8)
+    at callback (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:845:24)
+  status: 500,
+  payload: <Buffer >,
+  peer: 
+   { url: 'grpc://localhost:7051',
+     name: 'peer0.org1.hurley.lab',
+     options: 
+      { 'grpc.max_receive_message_length': -1,
+        'grpc.max_send_message_length': -1,
+        'grpc.keepalive_time_ms': 600000,
+        'grpc.http2.min_time_between_pings_ms': 120000,
+        'grpc.keepalive_timeout_ms': 20000,
+        'grpc.http2.max_pings_without_data': 0,
+        'grpc.keepalive_permit_without_calls': 1,
+        name: 'peer0.org1.hurley.lab',
+        'grpc.ssl_target_name_override': 'peer0.org1.hurley.lab',
+        'grpc.default_authority': 'peer0.org1.hurley.lab' } },
+  isProposalResponse: true }
+Test consenso
+Dovrebbe andare a buon fine
+[hurley] - Cart11
+[hurley] - Sending transaction as paziente1 in org org1...
+[hurley] - Transaction sent! VALID  SUCCESS daa9fe97c9663c10601a12d45f4ee9172eea807f1760d853542793fae5e8124f
+[hurley] - Result: {"type":"Buffer","data":[]}
+Cleaning up event hubs
+Dovrebbe dare errore
+[hurley] - Cart11
+[hurley] - Sending transaction as paziente2 in org org1...
+[hurley] - No peer ran tx successfully!
+undefined
+{ Error: transaction returned with failure: {"name":"Error","status":500,"message":"Identity B2:0E:D7:C5:A0:9B:D8:4E:3F:57:A2:47:2F:D5:44:97:E5:37:25:2D is not allowed to update [object Object] cartellaclinica just can"}
+    at self._endorserClient.processProposal (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/fabric-client/lib/Peer.js:144:36)
+    at Object.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:1207:9)
+    at InterceptingListener._callNext (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:568:42)
+    at InterceptingListener.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:618:8)
+    at callback (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:845:24)
+  status: 500,
+  payload: <Buffer >,
+  peer: 
+   { url: 'grpc://localhost:7051',
+     name: 'peer0.org1.hurley.lab',
+     options: 
+      { 'grpc.max_receive_message_length': -1,
+        'grpc.max_send_message_length': -1,
+        'grpc.keepalive_time_ms': 600000,
+        'grpc.http2.min_time_between_pings_ms': 120000,
+        'grpc.keepalive_timeout_ms': 20000,
+        'grpc.http2.max_pings_without_data': 0,
+        'grpc.keepalive_permit_without_calls': 1,
+        name: 'peer0.org1.hurley.lab',
+        'grpc.ssl_target_name_override': 'peer0.org1.hurley.lab',
+        'grpc.default_authority': 'peer0.org1.hurley.lab' } },
+  isProposalResponse: true }
+°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+[hurley] - Cart11
+[hurley] - Sending transaction as dottore1 in org org1...
+[hurley] - No peer ran tx successfully!
+undefined
+{ Error: transaction returned with failure: {"name":"Error","status":500,"message":"Identity 58:2C:48:81:8C:5C:93:FC:7B:16:D1:B4:37:CC:32:AD:97:55:2B:A7 is not allowed to update [object Object] cartellaclinica just can"}
+    at self._endorserClient.processProposal (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/fabric-client/lib/Peer.js:144:36)
+    at Object.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:1207:9)
+    at InterceptingListener._callNext (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:568:42)
+    at InterceptingListener.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:618:8)
+    at callback (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:845:24)
+  status: 500,
+  payload: <Buffer >,
+  peer: 
+   { url: 'grpc://localhost:7051',
+     name: 'peer0.org1.hurley.lab',
+     options: 
+      { 'grpc.max_receive_message_length': -1,
+        'grpc.max_send_message_length': -1,
+        'grpc.keepalive_time_ms': 600000,
+        'grpc.http2.min_time_between_pings_ms': 120000,
+        'grpc.keepalive_timeout_ms': 20000,
+        'grpc.http2.max_pings_without_data': 0,
+        'grpc.keepalive_permit_without_calls': 1,
+        name: 'peer0.org1.hurley.lab',
+        'grpc.ssl_target_name_override': 'peer0.org1.hurley.lab',
+        'grpc.default_authority': 'peer0.org1.hurley.lab' } },
+  isProposalResponse: true }
+°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+[hurley] - Cart11
+[hurley] - Sending transaction as dottore2 in org org1...
+[hurley] - No peer ran tx successfully!
+undefined
+{ Error: transaction returned with failure: {"name":"Error","status":500,"message":"Identity 29:EE:C2:FA:47:17:DB:DC:9D:13:76:70:CA:D2:AD:8C:85:BA:49:DC is not allowed to update [object Object] cartellaclinica just can"}
+    at self._endorserClient.processProposal (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/fabric-client/lib/Peer.js:144:36)
+    at Object.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:1207:9)
+    at InterceptingListener._callNext (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:568:42)
+    at InterceptingListener.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:618:8)
+    at callback (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:845:24)
+  status: 500,
+  payload: <Buffer >,
+  peer: 
+   { url: 'grpc://localhost:7051',
+     name: 'peer0.org1.hurley.lab',
+     options: 
+      { 'grpc.max_receive_message_length': -1,
+        'grpc.max_send_message_length': -1,
+        'grpc.keepalive_time_ms': 600000,
+        'grpc.http2.min_time_between_pings_ms': 120000,
+        'grpc.keepalive_timeout_ms': 20000,
+        'grpc.http2.max_pings_without_data': 0,
+        'grpc.keepalive_permit_without_calls': 1,
+        name: 'peer0.org1.hurley.lab',
+        'grpc.ssl_target_name_override': 'peer0.org1.hurley.lab',
+        'grpc.default_authority': 'peer0.org1.hurley.lab' } },
+  isProposalResponse: true }
+Test stato
+Dovrebbe andare a buon fine
+[hurley] - Cart22
+[hurley] - Sending transaction as dottore2 in org org1...
+[hurley] - Transaction sent! VALID  SUCCESS 49b5b56ca818c371a193fc1ce202f3306c5be9d90a00f7a7f79013884426b286
+[hurley] - Result: {"type":"Buffer","data":[]}
+Cleaning up event hubs
+Dovrebbe dare errore
+[hurley] - Cart22
+[hurley] - Sending transaction as paziente2 in org org1...
+[hurley] - No peer ran tx successfully!
+undefined
+{ Error: transaction returned with failure: {"name":"Error","status":500,"message":"Identity B2:0E:D7:C5:A0:9B:D8:4E:3F:57:A2:47:2F:D5:44:97:E5:37:25:2D is not allowed to update [object Object] cartellaclinica just can"}
+    at self._endorserClient.processProposal (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/fabric-client/lib/Peer.js:144:36)
+    at Object.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:1207:9)
+    at InterceptingListener._callNext (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:568:42)
+    at InterceptingListener.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:618:8)
+    at callback (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:845:24)
+  status: 500,
+  payload: <Buffer >,
+  peer: 
+   { url: 'grpc://localhost:7051',
+     name: 'peer0.org1.hurley.lab',
+     options: 
+      { 'grpc.max_receive_message_length': -1,
+        'grpc.max_send_message_length': -1,
+        'grpc.keepalive_time_ms': 600000,
+        'grpc.http2.min_time_between_pings_ms': 120000,
+        'grpc.keepalive_timeout_ms': 20000,
+        'grpc.http2.max_pings_without_data': 0,
+        'grpc.keepalive_permit_without_calls': 1,
+        name: 'peer0.org1.hurley.lab',
+        'grpc.ssl_target_name_override': 'peer0.org1.hurley.lab',
+        'grpc.default_authority': 'peer0.org1.hurley.lab' } },
+  isProposalResponse: true }
+°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+[hurley] - Cart22
+[hurley] - Sending transaction as dottore1 in org org1...
+[hurley] - No peer ran tx successfully!
+undefined
+{ Error: transaction returned with failure: {"name":"Error","status":500,"message":"Identity 58:2C:48:81:8C:5C:93:FC:7B:16:D1:B4:37:CC:32:AD:97:55:2B:A7 is not allowed to update [object Object] cartellaclinica just can"}
+    at self._endorserClient.processProposal (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/fabric-client/lib/Peer.js:144:36)
+    at Object.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:1207:9)
+    at InterceptingListener._callNext (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:568:42)
+    at InterceptingListener.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:618:8)
+    at callback (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:845:24)
+  status: 500,
+  payload: <Buffer >,
+  peer: 
+   { url: 'grpc://localhost:7051',
+     name: 'peer0.org1.hurley.lab',
+     options: 
+      { 'grpc.max_receive_message_length': -1,
+        'grpc.max_send_message_length': -1,
+        'grpc.keepalive_time_ms': 600000,
+        'grpc.http2.min_time_between_pings_ms': 120000,
+        'grpc.keepalive_timeout_ms': 20000,
+        'grpc.http2.max_pings_without_data': 0,
+        'grpc.keepalive_permit_without_calls': 1,
+        name: 'peer0.org1.hurley.lab',
+        'grpc.ssl_target_name_override': 'peer0.org1.hurley.lab',
+        'grpc.default_authority': 'peer0.org1.hurley.lab' } },
+  isProposalResponse: true }
+°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+[hurley] - Cart22
+[hurley] - Sending transaction as paziente1 in org org1...
+[hurley] - No peer ran tx successfully!
+undefined
+{ Error: transaction returned with failure: {"name":"Error","status":500,"message":"Identity ED:06:1D:2C:88:E1:42:98:BC:74:B1:A3:04:84:65:E6:47:CC:69:4E is not allowed to update [object Object] cartellaclinica just can"}
+    at self._endorserClient.processProposal (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/fabric-client/lib/Peer.js:144:36)
+    at Object.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:1207:9)
+    at InterceptingListener._callNext (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:568:42)
+    at InterceptingListener.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:618:8)
+    at callback (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:845:24)
+  status: 500,
+  payload: <Buffer >,
+  peer: 
+   { url: 'grpc://localhost:7051',
+     name: 'peer0.org1.hurley.lab',
+     options: 
+      { 'grpc.max_receive_message_length': -1,
+        'grpc.max_send_message_length': -1,
+        'grpc.keepalive_time_ms': 600000,
+        'grpc.http2.min_time_between_pings_ms': 120000,
+        'grpc.keepalive_timeout_ms': 20000,
+        'grpc.http2.max_pings_without_data': 0,
+        'grpc.keepalive_permit_without_calls': 1,
+        name: 'peer0.org1.hurley.lab',
+        'grpc.ssl_target_name_override': 'peer0.org1.hurley.lab',
+        'grpc.default_authority': 'peer0.org1.hurley.lab' } },
+  isProposalResponse: true }
+FINE
+Registriamo alcune identità in Fabric
+dottore1
+Store path:/home/convector/hyperledger-fabric-network/.hfc-org1
+Successfully loaded admin from persistence
+Successfully registered - sec : dottore1 with organization : dottore
+Successfully enrolled member user : dottore1
+dottore1 was successfully registered and enrolled and is ready to interact with the fabric network
+dottore2
+Store path:/home/convector/hyperledger-fabric-network/.hfc-org1
+Successfully loaded admin from persistence
+Successfully registered - sec : dottore2 with organization : dottore
+Successfully enrolled member user : dottore2
+dottore2 was successfully registered and enrolled and is ready to interact with the fabric network
+paziente1
+Store path:/home/convector/hyperledger-fabric-network/.hfc-org1
+Successfully loaded admin from persistence
+Successfully registered - sec : paziente1 with organization : paziente
+Successfully enrolled member user : paziente1
+paziente1 was successfully registered and enrolled and is ready to interact with the fabric network
+paziente2
+Store path:/home/convector/hyperledger-fabric-network/.hfc-org1
+Successfully loaded admin from persistence
+Successfully registered - sec : paziente2 with organization : paziente
+Successfully enrolled member user : paziente2
+paziente2 was successfully registered and enrolled and is ready to interact with the fabric network
+FINE
+Inseriamo alcuni dati nel database
+[hurley] - Paz11
+[hurley] - Paolo
+[hurley] - Bianchi
+[hurley] - Sending transaction as paziente1 in org org1...
+[hurley] - Transaction sent! VALID  SUCCESS 086c797faa459bab628ba7d5d1ddc8be0bac9e25499892240b3fb4be753c2270
+[hurley] - Result: {"type":"Buffer","data":[]}
+Cleaning up event hubs
+[hurley] - Paz22
+[hurley] - Mario
+[hurley] - Rossi
+[hurley] - Sending transaction as paziente2 in org org1...
+[hurley] - Transaction sent! VALID  SUCCESS bb8526c148df7b3c3b37a51c7af947cb82e2b7d45d6cd5b71ad46ddeae6d0f1f
+[hurley] - Result: {"type":"Buffer","data":[]}
+Cleaning up event hubs
+[hurley] - Dot11
+[hurley] - Giacomo
+[hurley] - Calabresi
+[hurley] - ortopedico
+[hurley] - Sending transaction as dottore1 in org org1...
+[hurley] - Transaction sent! VALID  SUCCESS 14bbbded84664b59089d2a5293c50b2e680f9e717831c6e04c9ac984e3f7b4f6
+[hurley] - Result: {"type":"Buffer","data":[]}
+Cleaning up event hubs
+[hurley] - Dot22
+[hurley] - Giuseppe
+[hurley] - Simari
+[hurley] - cardiologo
+[hurley] - Sending transaction as dottore2 in org org1...
+[hurley] - Transaction sent! VALID  SUCCESS b60ac68311b232a21045fc34f36bbce9b09f366684eac293ca2d74be2aa5ec1e
+[hurley] - Result: {"type":"Buffer","data":[]}
+Cleaning up event hubs
+[hurley] - Cart11
+[hurley] - Trauma
+[hurley] - Paz11
+[hurley] - Dot11
+[hurley] - true
+[hurley] - true
+[hurley] - Sending transaction as dottore1 in org org1...
+[hurley] - Transaction sent! VALID  SUCCESS 6359723ae698de91bd03192b9b575706267e94de807c46136c5c1451440a10da
+[hurley] - Result: {"type":"Buffer","data":[]}
+Cleaning up event hubs
+[hurley] - Cart22
+[hurley] - Polmonite
+[hurley] - Paz22
+[hurley] - Dot22
+[hurley] - true
+[hurley] - true
+[hurley] - Sending transaction as dottore2 in org org1...
+[hurley] - Transaction sent! VALID  SUCCESS 42d41d47b8ac7754c4afc959c71570cce6bbd5ee10beb902ae0eef03c26f8d1a
+[hurley] - Result: {"type":"Buffer","data":[]}
+Cleaning up event hubs
+Dati inseriti correttamente
+Test get
+Dovrebbe andare a buon fine
+[hurley] - Cart11
+[hurley] - Sending transaction as dottore1 in org org1...
+[hurley] - Transaction sent! VALID  SUCCESS 25ba7b184748f6b40ff6dad12300238efda71952ac641ccf3b76cfcff7a7ffbe
+[hurley] - Result: {"_consenso":true,"_dottoreID":"Dot11","_id":"Cart11","_patologia":"Trauma","_pazienteID":"Paz11","_stato":true,"_type":"io.worldsibu.cartellaclinica"}
+Cleaning up event hubs
+°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+[hurley] - Cart11
+[hurley] - Sending transaction as paziente1 in org org1...
+[hurley] - Transaction sent! VALID  SUCCESS 27e5b2fd660e82d8c816531b9c0ab72e8ca3e410f9320d64b035b88040146a09
+[hurley] - Result: {"_consenso":true,"_dottoreID":"Dot11","_id":"Cart11","_patologia":"Trauma","_pazienteID":"Paz11","_stato":true,"_type":"io.worldsibu.cartellaclinica"}
+Cleaning up event hubs
+Dovrebbe dare errore
+[hurley] - Cart11
+[hurley] - Sending transaction as dottore2 in org org1...
+[hurley] - No peer ran tx successfully!
+undefined
+{ Error: transaction returned with failure: {"name":"Error","status":500,"message":"Identity ED:17:95:EF:AF:6A:A6:81:A8:09:6B:8A:96:BD:F2:61:7E:F4:0C:C6 is not allowed to views this certificate"}
+    at self._endorserClient.processProposal (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/fabric-client/lib/Peer.js:144:36)
+    at Object.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:1207:9)
+    at InterceptingListener._callNext (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:568:42)
+    at InterceptingListener.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:618:8)
+    at callback (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:845:24)
+  status: 500,
+  payload: <Buffer >,
+  peer: 
+   { url: 'grpc://localhost:7051',
+     name: 'peer0.org1.hurley.lab',
+     options: 
+      { 'grpc.max_receive_message_length': -1,
+        'grpc.max_send_message_length': -1,
+        'grpc.keepalive_time_ms': 600000,
+        'grpc.http2.min_time_between_pings_ms': 120000,
+        'grpc.keepalive_timeout_ms': 20000,
+        'grpc.http2.max_pings_without_data': 0,
+        'grpc.keepalive_permit_without_calls': 1,
+        name: 'peer0.org1.hurley.lab',
+        'grpc.ssl_target_name_override': 'peer0.org1.hurley.lab',
+        'grpc.default_authority': 'peer0.org1.hurley.lab' } },
+  isProposalResponse: true }
+°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+[hurley] - Cart11
+[hurley] - Sending transaction as paziente2 in org org1...
+[hurley] - No peer ran tx successfully!
+undefined
+{ Error: transaction returned with failure: {"name":"Error","status":500,"message":"Identity 59:5B:77:89:64:48:26:20:3E:6A:24:ED:5E:88:54:01:02:6B:8D:5B is not allowed to views this certificate"}
+    at self._endorserClient.processProposal (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/fabric-client/lib/Peer.js:144:36)
+    at Object.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:1207:9)
+    at InterceptingListener._callNext (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:568:42)
+    at InterceptingListener.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:618:8)
+    at callback (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:845:24)
+  status: 500,
+  payload: <Buffer >,
+  peer: 
+   { url: 'grpc://localhost:7051',
+     name: 'peer0.org1.hurley.lab',
+     options: 
+      { 'grpc.max_receive_message_length': -1,
+        'grpc.max_send_message_length': -1,
+        'grpc.keepalive_time_ms': 600000,
+        'grpc.http2.min_time_between_pings_ms': 120000,
+        'grpc.keepalive_timeout_ms': 20000,
+        'grpc.http2.max_pings_without_data': 0,
+        'grpc.keepalive_permit_without_calls': 1,
+        name: 'peer0.org1.hurley.lab',
+        'grpc.ssl_target_name_override': 'peer0.org1.hurley.lab',
+        'grpc.default_authority': 'peer0.org1.hurley.lab' } },
+  isProposalResponse: true }
+Test consenso
+Dovrebbe andare a buon fine
+[hurley] - Cart11
+[hurley] - Sending transaction as paziente1 in org org1...
+[hurley] - Transaction sent! VALID  SUCCESS 0da89f6a31ebc70d0b02f601bc6f0d1f6008ebb66cd534ec477c5622ab571358
+[hurley] - Result: {"type":"Buffer","data":[]}
+Cleaning up event hubs
+Dovrebbe dare errore
+[hurley] - Cart11
+[hurley] - Sending transaction as paziente2 in org org1...
+[hurley] - No peer ran tx successfully!
+undefined
+{ Error: transaction returned with failure: {"name":"Error","status":500,"message":"Identity 59:5B:77:89:64:48:26:20:3E:6A:24:ED:5E:88:54:01:02:6B:8D:5B is not allowed to update [object Object] cartellaclinica just can"}
+    at self._endorserClient.processProposal (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/fabric-client/lib/Peer.js:144:36)
+    at Object.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:1207:9)
+    at InterceptingListener._callNext (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:568:42)
+    at InterceptingListener.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:618:8)
+    at callback (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:845:24)
+  status: 500,
+  payload: <Buffer >,
+  peer: 
+   { url: 'grpc://localhost:7051',
+     name: 'peer0.org1.hurley.lab',
+     options: 
+      { 'grpc.max_receive_message_length': -1,
+        'grpc.max_send_message_length': -1,
+        'grpc.keepalive_time_ms': 600000,
+        'grpc.http2.min_time_between_pings_ms': 120000,
+        'grpc.keepalive_timeout_ms': 20000,
+        'grpc.http2.max_pings_without_data': 0,
+        'grpc.keepalive_permit_without_calls': 1,
+        name: 'peer0.org1.hurley.lab',
+        'grpc.ssl_target_name_override': 'peer0.org1.hurley.lab',
+        'grpc.default_authority': 'peer0.org1.hurley.lab' } },
+  isProposalResponse: true }
+°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+[hurley] - Cart11
+[hurley] - Sending transaction as dottore1 in org org1...
+[hurley] - No peer ran tx successfully!
+undefined
+{ Error: transaction returned with failure: {"name":"Error","status":500,"message":"Identity B5:5E:73:68:9D:AC:9A:6D:64:BF:C5:91:E8:30:13:77:DB:C9:E4:F6 is not allowed to update [object Object] cartellaclinica just can"}
+    at self._endorserClient.processProposal (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/fabric-client/lib/Peer.js:144:36)
+    at Object.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:1207:9)
+    at InterceptingListener._callNext (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:568:42)
+    at InterceptingListener.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:618:8)
+    at callback (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:845:24)
+  status: 500,
+  payload: <Buffer >,
+  peer: 
+   { url: 'grpc://localhost:7051',
+     name: 'peer0.org1.hurley.lab',
+     options: 
+      { 'grpc.max_receive_message_length': -1,
+        'grpc.max_send_message_length': -1,
+        'grpc.keepalive_time_ms': 600000,
+        'grpc.http2.min_time_between_pings_ms': 120000,
+        'grpc.keepalive_timeout_ms': 20000,
+        'grpc.http2.max_pings_without_data': 0,
+        'grpc.keepalive_permit_without_calls': 1,
+        name: 'peer0.org1.hurley.lab',
+        'grpc.ssl_target_name_override': 'peer0.org1.hurley.lab',
+        'grpc.default_authority': 'peer0.org1.hurley.lab' } },
+  isProposalResponse: true }
+°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+[hurley] - Cart11
+[hurley] - Sending transaction as dottore2 in org org1...
+[hurley] - No peer ran tx successfully!
+undefined
+{ Error: transaction returned with failure: {"name":"Error","status":500,"message":"Identity ED:17:95:EF:AF:6A:A6:81:A8:09:6B:8A:96:BD:F2:61:7E:F4:0C:C6 is not allowed to update [object Object] cartellaclinica just can"}
+    at self._endorserClient.processProposal (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/fabric-client/lib/Peer.js:144:36)
+    at Object.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:1207:9)
+    at InterceptingListener._callNext (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:568:42)
+    at InterceptingListener.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:618:8)
+    at callback (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:845:24)
+  status: 500,
+  payload: <Buffer >,
+  peer: 
+   { url: 'grpc://localhost:7051',
+     name: 'peer0.org1.hurley.lab',
+     options: 
+      { 'grpc.max_receive_message_length': -1,
+        'grpc.max_send_message_length': -1,
+        'grpc.keepalive_time_ms': 600000,
+        'grpc.http2.min_time_between_pings_ms': 120000,
+        'grpc.keepalive_timeout_ms': 20000,
+        'grpc.http2.max_pings_without_data': 0,
+        'grpc.keepalive_permit_without_calls': 1,
+        name: 'peer0.org1.hurley.lab',
+        'grpc.ssl_target_name_override': 'peer0.org1.hurley.lab',
+        'grpc.default_authority': 'peer0.org1.hurley.lab' } },
+  isProposalResponse: true }
+Test stato
+Dovrebbe andare a buon fine
+[hurley] - Cart22
+[hurley] - Sending transaction as dottore2 in org org1...
+[hurley] - Transaction sent! VALID  SUCCESS 7a029244fe1f7556fed7a3207e965349e9f2ef29a835557110510fae5d18bf89
+[hurley] - Result: {"type":"Buffer","data":[]}
+Cleaning up event hubs
+Dovrebbe dare errore
+[hurley] - Cart22
+[hurley] - Sending transaction as paziente2 in org org1...
+[hurley] - Transaction sent! VALID  SUCCESS 7c3344d3738a24188c29611362da58a7626c7883e644703f1b7bec5c9203bf31
+[hurley] - Result: {"type":"Buffer","data":[]}
+Cleaning up event hubs
+°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+[hurley] - Cart22
+[hurley] - Sending transaction as dottore1 in org org1...
+[hurley] - Transaction sent! VALID  SUCCESS eb89c8985fa065642c1a7a4767b56f4ab203a5efae17499a46ef2f7e664e2cb2
+[hurley] - Result: {"type":"Buffer","data":[]}
+Cleaning up event hubs
+°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+[hurley] - Cart22
+[hurley] - Sending transaction as paziente1 in org org1...
+[hurley] - Transaction sent! VALID  SUCCESS 1c4c5c52a20a779d4538b2b26e3159d419bff35e42a62edc2d145209d546bed1
+[hurley] - Result: {"type":"Buffer","data":[]}
+Cleaning up event hubs
+FINE
+Registriamo alcune identità in Fabric
+dottore1
+Store path:/home/convector/hyperledger-fabric-network/.hfc-org1
+Successfully loaded admin from persistence
+Successfully registered - sec : dottore1 with organization : dottore
+Successfully enrolled member user : dottore1
+dottore1 was successfully registered and enrolled and is ready to interact with the fabric network
+dottore2
+Store path:/home/convector/hyperledger-fabric-network/.hfc-org1
+Successfully loaded admin from persistence
+Successfully registered - sec : dottore2 with organization : dottore
+Successfully enrolled member user : dottore2
+dottore2 was successfully registered and enrolled and is ready to interact with the fabric network
+paziente1
+Store path:/home/convector/hyperledger-fabric-network/.hfc-org1
+Successfully loaded admin from persistence
+Successfully registered - sec : paziente1 with organization : paziente
+Successfully enrolled member user : paziente1
+paziente1 was successfully registered and enrolled and is ready to interact with the fabric network
+paziente2
+Store path:/home/convector/hyperledger-fabric-network/.hfc-org1
+Successfully loaded admin from persistence
+Successfully registered - sec : paziente2 with organization : paziente
+Successfully enrolled member user : paziente2
+paziente2 was successfully registered and enrolled and is ready to interact with the fabric network
+FINE
+Inseriamo alcuni dati nel database
+[hurley] - { "id": "1-100-999", "nome": "Mario", "cognome": "Rossi", "username": "mr1976", "password": "mario123", "roles": ["DOC"] }
+[hurley] - Sending transaction as dottore1 in org org1...
+[hurley] - No peer ran tx successfully!
+undefined
+{ Error: make sure the chaincode person has been successfully instantiated and try again: chaincode person not found
+    at self._endorserClient.processProposal (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/fabric-client/lib/Peer.js:144:36)
+    at Object.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:1207:9)
+    at InterceptingListener._callNext (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:568:42)
+    at InterceptingListener.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:618:8)
+    at callback (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:845:24)
+  status: 500,
+  payload: <Buffer >,
+  peer: 
+   { url: 'grpc://localhost:7051',
+     name: 'peer0.org1.hurley.lab',
+     options: 
+      { 'grpc.max_receive_message_length': -1,
+        'grpc.max_send_message_length': -1,
+        'grpc.keepalive_time_ms': 600000,
+        'grpc.http2.min_time_between_pings_ms': 120000,
+        'grpc.keepalive_timeout_ms': 20000,
+        'grpc.http2.max_pings_without_data': 0,
+        'grpc.keepalive_permit_without_calls': 1,
+        name: 'peer0.org1.hurley.lab',
+        'grpc.ssl_target_name_override': 'peer0.org1.hurley.lab',
+        'grpc.default_authority': 'peer0.org1.hurley.lab' } },
+  isProposalResponse: true }
+[hurley] - { "id": "1-100-666", "nome": "Luigi", "cognome": "Verdi", "username": "lv1986", "password": "luigi123", "roles": ["DOC"] }
+[hurley] - Sending transaction as dottore2 in org org1...
+[hurley] - No peer ran tx successfully!
+undefined
+{ Error: make sure the chaincode person has been successfully instantiated and try again: chaincode person not found
+    at self._endorserClient.processProposal (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/fabric-client/lib/Peer.js:144:36)
+    at Object.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:1207:9)
+    at InterceptingListener._callNext (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:568:42)
+    at InterceptingListener.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:618:8)
+    at callback (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:845:24)
+  status: 500,
+  payload: <Buffer >,
+  peer: 
+   { url: 'grpc://localhost:7051',
+     name: 'peer0.org1.hurley.lab',
+     options: 
+      { 'grpc.max_receive_message_length': -1,
+        'grpc.max_send_message_length': -1,
+        'grpc.keepalive_time_ms': 600000,
+        'grpc.http2.min_time_between_pings_ms': 120000,
+        'grpc.keepalive_timeout_ms': 20000,
+        'grpc.http2.max_pings_without_data': 0,
+        'grpc.keepalive_permit_without_calls': 1,
+        name: 'peer0.org1.hurley.lab',
+        'grpc.ssl_target_name_override': 'peer0.org1.hurley.lab',
+        'grpc.default_authority': 'peer0.org1.hurley.lab' } },
+  isProposalResponse: true }
+[hurley] - { "id": "1-100-111", "nome": "Andrea", "cognome": "Bianchi", "username": "ab1996", "password": "andrea123" }
+[hurley] - Sending transaction as paziente1 in org org1...
+[hurley] - No peer ran tx successfully!
+undefined
+{ Error: make sure the chaincode person has been successfully instantiated and try again: chaincode person not found
+    at self._endorserClient.processProposal (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/fabric-client/lib/Peer.js:144:36)
+    at Object.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:1207:9)
+    at InterceptingListener._callNext (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:568:42)
+    at InterceptingListener.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:618:8)
+    at callback (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:845:24)
+  status: 500,
+  payload: <Buffer >,
+  peer: 
+   { url: 'grpc://localhost:7051',
+     name: 'peer0.org1.hurley.lab',
+     options: 
+      { 'grpc.max_receive_message_length': -1,
+        'grpc.max_send_message_length': -1,
+        'grpc.keepalive_time_ms': 600000,
+        'grpc.http2.min_time_between_pings_ms': 120000,
+        'grpc.keepalive_timeout_ms': 20000,
+        'grpc.http2.max_pings_without_data': 0,
+        'grpc.keepalive_permit_without_calls': 1,
+        name: 'peer0.org1.hurley.lab',
+        'grpc.ssl_target_name_override': 'peer0.org1.hurley.lab',
+        'grpc.default_authority': 'peer0.org1.hurley.lab' } },
+  isProposalResponse: true }
+[hurley] - { "id": "1-100-222", "nome": "Paolo", "cognome": "Boh", "username": "pb1992", "password": "paolo123" }
+[hurley] - Sending transaction as paziente2 in org org1...
+[hurley] - No peer ran tx successfully!
+undefined
+{ Error: make sure the chaincode person has been successfully instantiated and try again: chaincode person not found
+    at self._endorserClient.processProposal (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/fabric-client/lib/Peer.js:144:36)
+    at Object.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:1207:9)
+    at InterceptingListener._callNext (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:568:42)
+    at InterceptingListener.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:618:8)
+    at callback (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:845:24)
+  status: 500,
+  payload: <Buffer >,
+  peer: 
+   { url: 'grpc://localhost:7051',
+     name: 'peer0.org1.hurley.lab',
+     options: 
+      { 'grpc.max_receive_message_length': -1,
+        'grpc.max_send_message_length': -1,
+        'grpc.keepalive_time_ms': 600000,
+        'grpc.http2.min_time_between_pings_ms': 120000,
+        'grpc.keepalive_timeout_ms': 20000,
+        'grpc.http2.max_pings_without_data': 0,
+        'grpc.keepalive_permit_without_calls': 1,
+        name: 'peer0.org1.hurley.lab',
+        'grpc.ssl_target_name_override': 'peer0.org1.hurley.lab',
+        'grpc.default_authority': 'peer0.org1.hurley.lab' } },
+  isProposalResponse: true }
+[hurley] - Cart11
+[hurley] - Trauma
+[hurley] - 1-100-111
+[hurley] - 1-100-999
+[hurley] - true
+[hurley] - true
+[hurley] - Sending transaction as dottore1 in org org1...
+[hurley] - No peer ran tx successfully!
+undefined
+{ Error: transaction returned with failure: {"name":"Error","status":500,"message":"Referenced owner personale does not exist in the ledger"}
+    at self._endorserClient.processProposal (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/fabric-client/lib/Peer.js:144:36)
+    at Object.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:1207:9)
+    at InterceptingListener._callNext (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:568:42)
+    at InterceptingListener.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:618:8)
+    at callback (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:845:24)
+  status: 500,
+  payload: <Buffer >,
+  peer: 
+   { url: 'grpc://localhost:7051',
+     name: 'peer0.org1.hurley.lab',
+     options: 
+      { 'grpc.max_receive_message_length': -1,
+        'grpc.max_send_message_length': -1,
+        'grpc.keepalive_time_ms': 600000,
+        'grpc.http2.min_time_between_pings_ms': 120000,
+        'grpc.keepalive_timeout_ms': 20000,
+        'grpc.http2.max_pings_without_data': 0,
+        'grpc.keepalive_permit_without_calls': 1,
+        name: 'peer0.org1.hurley.lab',
+        'grpc.ssl_target_name_override': 'peer0.org1.hurley.lab',
+        'grpc.default_authority': 'peer0.org1.hurley.lab' } },
+  isProposalResponse: true }
+[hurley] - Cart22
+[hurley] - Polmonite
+[hurley] - 1-100-222
+[hurley] - 1-100-666
+[hurley] - true
+[hurley] - true
+[hurley] - Sending transaction as dottore2 in org org1...
+[hurley] - No peer ran tx successfully!
+undefined
+{ Error: transaction returned with failure: {"name":"Error","status":500,"message":"Referenced owner personale does not exist in the ledger"}
+    at self._endorserClient.processProposal (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/fabric-client/lib/Peer.js:144:36)
+    at Object.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:1207:9)
+    at InterceptingListener._callNext (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:568:42)
+    at InterceptingListener.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:618:8)
+    at callback (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:845:24)
+  status: 500,
+  payload: <Buffer >,
+  peer: 
+   { url: 'grpc://localhost:7051',
+     name: 'peer0.org1.hurley.lab',
+     options: 
+      { 'grpc.max_receive_message_length': -1,
+        'grpc.max_send_message_length': -1,
+        'grpc.keepalive_time_ms': 600000,
+        'grpc.http2.min_time_between_pings_ms': 120000,
+        'grpc.keepalive_timeout_ms': 20000,
+        'grpc.http2.max_pings_without_data': 0,
+        'grpc.keepalive_permit_without_calls': 1,
+        name: 'peer0.org1.hurley.lab',
+        'grpc.ssl_target_name_override': 'peer0.org1.hurley.lab',
+        'grpc.default_authority': 'peer0.org1.hurley.lab' } },
+  isProposalResponse: true }
+Dati inseriti correttamente
+Test get
+Dovrebbe andare a buon fine
+[hurley] - Cart11
+[hurley] - Sending transaction as dottore1 in org org1...
+[hurley] - No peer ran tx successfully!
+undefined
+{ Error: transaction returned with failure: {"name":"Error","status":500,"message":"Invalid or missing id. You either provided an invalid ID or did not sent one"}
+    at self._endorserClient.processProposal (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/fabric-client/lib/Peer.js:144:36)
+    at Object.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:1207:9)
+    at InterceptingListener._callNext (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:568:42)
+    at InterceptingListener.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:618:8)
+    at callback (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:845:24)
+  status: 500,
+  payload: <Buffer >,
+  peer: 
+   { url: 'grpc://localhost:7051',
+     name: 'peer0.org1.hurley.lab',
+     options: 
+      { 'grpc.max_receive_message_length': -1,
+        'grpc.max_send_message_length': -1,
+        'grpc.keepalive_time_ms': 600000,
+        'grpc.http2.min_time_between_pings_ms': 120000,
+        'grpc.keepalive_timeout_ms': 20000,
+        'grpc.http2.max_pings_without_data': 0,
+        'grpc.keepalive_permit_without_calls': 1,
+        name: 'peer0.org1.hurley.lab',
+        'grpc.ssl_target_name_override': 'peer0.org1.hurley.lab',
+        'grpc.default_authority': 'peer0.org1.hurley.lab' } },
+  isProposalResponse: true }
+°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°
+Registriamo alcune identità in Fabric
+dottore1
+Store path:/home/convector/hyperledger-fabric-network/.hfc-org1
+Successfully loaded admin from persistence
+Successfully registered - sec : dottore1 with organization : dottore
+Successfully enrolled member user : dottore1
+dottore1 was successfully registered and enrolled and is ready to interact with the fabric network
+dottore2
+Store path:/home/convector/hyperledger-fabric-network/.hfc-org1
+Successfully loaded admin from persistence
+Successfully registered - sec : dottore2 with organization : dottore
+Successfully enrolled member user : dottore2
+dottore2 was successfully registered and enrolled and is ready to interact with the fabric network
+paziente1
+Store path:/home/convector/hyperledger-fabric-network/.hfc-org1
+Successfully loaded admin from persistence
+Successfully registered - sec : paziente1 with organization : paziente
+Successfully enrolled member user : paziente1
+paziente1 was successfully registered and enrolled and is ready to interact with the fabric network
+paziente2
+Store path:/home/convector/hyperledger-fabric-network/.hfc-org1
+Successfully loaded admin from persistence
+Successfully registered - sec : paziente2 with organization : paziente
+Successfully enrolled member user : paziente2
+paziente2 was successfully registered and enrolled and is ready to interact with the fabric network
+FINE
+Inseriamo alcuni dati nel database
+[hurley] - { "id": "1-100-999", "nome": "Mario", "cognome": "Rossi", "username": "mr1976", "password": "mario123", "roles": ["DOC"] }
+[hurley] - Sending transaction as dottore1 in org org1...
+[hurley] - No peer ran tx successfully!
+undefined
+{ Error: transaction returned with failure: {"name":"Error","status":500,"message":"There is a person registered with that username already"}
+    at self._endorserClient.processProposal (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/fabric-client/lib/Peer.js:144:36)
+    at Object.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:1207:9)
+    at InterceptingListener._callNext (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:568:42)
+    at InterceptingListener.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:618:8)
+    at callback (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:845:24)
+  status: 500,
+  payload: <Buffer >,
+  peer: 
+   { url: 'grpc://localhost:7051',
+     name: 'peer0.org1.hurley.lab',
+     options: 
+      { 'grpc.max_receive_message_length': -1,
+        'grpc.max_send_message_length': -1,
+        'grpc.keepalive_time_ms': 600000,
+        'grpc.http2.min_time_between_pings_ms': 120000,
+        'grpc.keepalive_timeout_ms': 20000,
+        'grpc.http2.max_pings_without_data': 0,
+        'grpc.keepalive_permit_without_calls': 1,
+        name: 'peer0.org1.hurley.lab',
+        'grpc.ssl_target_name_override': 'peer0.org1.hurley.lab',
+        'grpc.default_authority': 'peer0.org1.hurley.lab' } },
+  isProposalResponse: true }
+[hurley] - { "id": "1-100-666", "nome": "Luigi", "cognome": "Verdi", "username": "lv1986", "password": "luigi123", "roles": ["DOC"] }
+[hurley] - Sending transaction as dottore2 in org org1...
+[hurley] - No peer ran tx successfully!
+undefined
+{ Error: transaction returned with failure: {"name":"Error","status":500,"message":"There is a person registered with that username already"}
+    at self._endorserClient.processProposal (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/fabric-client/lib/Peer.js:144:36)
+    at Object.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:1207:9)
+    at InterceptingListener._callNext (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:568:42)
+    at InterceptingListener.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:618:8)
+    at callback (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:845:24)
+  status: 500,
+  payload: <Buffer >,
+  peer: 
+   { url: 'grpc://localhost:7051',
+     name: 'peer0.org1.hurley.lab',
+     options: 
+      { 'grpc.max_receive_message_length': -1,
+        'grpc.max_send_message_length': -1,
+        'grpc.keepalive_time_ms': 600000,
+        'grpc.http2.min_time_between_pings_ms': 120000,
+        'grpc.keepalive_timeout_ms': 20000,
+        'grpc.http2.max_pings_without_data': 0,
+        'grpc.keepalive_permit_without_calls': 1,
+        name: 'peer0.org1.hurley.lab',
+        'grpc.ssl_target_name_override': 'peer0.org1.hurley.lab',
+        'grpc.default_authority': 'peer0.org1.hurley.lab' } },
+  isProposalResponse: true }
+[hurley] - { "id": "1-100-111", "nome": "Andrea", "cognome": "Bianchi", "username": "ab1996", "password": "andrea123" }
+[hurley] - Sending transaction as paziente1 in org org1...
+[hurley] - No peer ran tx successfully!
+undefined
+{ Error: transaction returned with failure: {"name":"Error","status":500,"message":"There is a person registered with that username already"}
+    at self._endorserClient.processProposal (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/fabric-client/lib/Peer.js:144:36)
+    at Object.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:1207:9)
+    at InterceptingListener._callNext (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:568:42)
+    at InterceptingListener.onReceiveStatus (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:618:8)
+    at callback (/home/convector/.nvm/versions/node/v8.11.4/lib/node_modules/@worldsibu/hurley/node_modules/grpc/src/client_interceptors.js:845:24)
+  status: 500,
+  payload: <Buffer >,
+  peer: 
+   { url: 'grpc://localhost:7051',
+     name: 'peer0.org1.hurley.lab',
+     options: 
+      { 'grpc.max_receive_message_length': -1,
+        'grpc.max_send_message_length': -1,
+        'grpc.keepalive_time_ms': 600000,
+        'grpc.http2.min_time_between_pings_ms': 120000,
+        'grpc.keepalive_timeout_ms': 20000,
+        'grpc.http2.max_pings_without_data': 0,
+        'grpc.keepalive_permit_without_calls': 1,
+        name: 'peer0.org1.hurley.lab',
+        'grpc.ssl_target_name_override': 'peer0.org1.hurley.lab',
+        'grpc.default_authority': 'peer0.org1.hurley.lab' } },
+  isProposalResponse: true }
+[hurley] - { "id": "1-100-222", "nome": "Paolo", "cognome": "Boh", "username": "pb1992", "password": "paolo123" }
+[hurley] - Sending transaction as paziente2 in org org1...
