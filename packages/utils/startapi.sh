@@ -4,8 +4,8 @@ timestamp() {
   date +"%T"
 }
 echo "Test creazione cartella clinica"
-curl -H "Content-Type: application/json" --request POST --data '{ "id":"Cart44", "patologia":"infezione", "pazienteID":"Paz11", "dottoreID":"Dot11", "stato":true, 
-"consenso":true }' http://localhost:8000/cartellaclinica/create
+curl -H "Content-Type: application/json" --request POST --data '{"cartellaclinica": { "id":"Cart44", "patologia":"infezione", "pazienteID":"Paz1", "dottoreID":"Dot1", "stato":true, 
+"consenso":true } }' http://localhost:8000/cartellaclinica/create
 echo "°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°"
 sleep 1
 echo "Test get di una cartella clinica"
