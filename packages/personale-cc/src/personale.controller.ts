@@ -43,18 +43,18 @@ export class PersonaleController extends ConvectorController<ChaincodeTx> {
       personale.cognome = cognome;*/
       //personale.patologia = pato
       
-      const existsUsername = await Personale.query(Personale, {
+      /*const existsUsername = await Personale.query(Personale, {
         selector: {
           type: 'io.worldsibu.examples.personale',
           username: personale.username,
-          participant: {
+          /*personale: {
             id: personale.id
           }
         }
       });
-      if (!existsUsername || !existing.id) {
+      if (existsUsername /*|| !existing.id ) {
         throw new Error('There is a person registered with that username already');
-      }  
+      }*/
 
       personale.msp = this.tx.identity.getMSPID();
       // Create a new identity

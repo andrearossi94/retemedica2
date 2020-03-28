@@ -14,7 +14,9 @@ import { Personale } from 'personale-cc';
 export class CartellaclinicaController extends ConvectorController {
   @Invokable()
   public async create(
-    @Param(yup.string())
+    @Param(Cartellaclinica)
+    cartellaclinica: Cartellaclinica
+    /*@Param(yup.string())
     id: string,
     @Param(yup.string())
     patologia: string,
@@ -25,22 +27,22 @@ export class CartellaclinicaController extends ConvectorController {
     @Param(yup.boolean())
     stato: boolean,
     @Param(yup.boolean())
-    consenso: boolean
+    consenso: boolean*/
   ) {
     //let cartellaclinica = new Cartellaclinica(id);
-    let cc = await Cartellaclinica.getOne(id);
+    let cc = await Cartellaclinica.getOne(cartellaclinica.id);
     //let doc = await Personale.getOne(this.sender)
     if (cc.id) {
-      throw new Error(`Cartellaclinica with id ${id} does already exist`);
+      throw new Error(`Cartellaclinica with id ${cartellaclinica.id} does already exist`);
     }
-    let cartellaclinica = new Cartellaclinica();
+    /*let cartellaclinica = new Cartellaclinica();
     cartellaclinica.id = id;
     cartellaclinica.patologia = patologia;
     cartellaclinica.pazienteID = pazienteID;
     cartellaclinica.dottoreID = dottoreID;
     cartellaclinica.stato = stato;
     cartellaclinica.consenso = consenso; //da o rimuove il consenso per accedere alla cartella clinica
-    //////
+    */
 
     let dottore = await Personale.getOne(cartellaclinica.dottoreID);
     
