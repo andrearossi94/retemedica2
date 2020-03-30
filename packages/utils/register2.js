@@ -1,5 +1,5 @@
 /*
- * Register and Enroll a user
+ * Registrazione ed Enroll di un utente
  */
 
 const Fabric_Client = require('fabric-client');
