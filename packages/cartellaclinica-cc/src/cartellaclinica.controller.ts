@@ -16,18 +16,6 @@ export class CartellaclinicaController extends ConvectorController {
   public async create(
     @Param(Cartellaclinica)
     cartellaclinica: Cartellaclinica
-    /*@Param(yup.string())
-    id: string,
-    @Param(yup.string())
-    patologia: string,
-    @Param(yup.string())
-    pazienteID: string,
-    @Param(yup.string())
-    dottoreID: string,
-    @Param(yup.boolean())
-    stato: boolean,
-    @Param(yup.boolean())
-    consenso: boolean*/
   ) {
     //let cartellaclinica = new Cartellaclinica(id);
     let cc = await Cartellaclinica.getOne(cartellaclinica.id);
@@ -35,14 +23,6 @@ export class CartellaclinicaController extends ConvectorController {
     if (cc.id) {
       throw new Error(`Cartellaclinica with id ${cartellaclinica.id} does already exist`);
     }
-    /*let cartellaclinica = new Cartellaclinica();
-    cartellaclinica.id = id;
-    cartellaclinica.patologia = patologia;
-    cartellaclinica.pazienteID = pazienteID;
-    cartellaclinica.dottoreID = dottoreID;
-    cartellaclinica.stato = stato;
-    cartellaclinica.consenso = consenso; //da o rimuove il consenso per accedere alla cartella clinica
-    */
 
     let dottore = await Personale.getOne(cartellaclinica.dottoreID);
     
@@ -59,7 +39,6 @@ export class CartellaclinicaController extends ConvectorController {
     }
     ///await cartellaclinica.save();
   }
-
 
   @Invokable()
   public async degenza( //cambio stato cartellaclinica : guarito o no
@@ -91,26 +70,6 @@ export class CartellaclinicaController extends ConvectorController {
   }
 
   @Invokable()
-  public async get(
-    @Param(yup.string())
-    id: string
-  ) {
-    let cartellaclinica = await Cartellaclinica.getOne(id);
-    let dottore = await Personale.getOne(cartellaclinica.dottoreID);
-    let paziente = await Personale.getOne(cartellaclinica.pazienteID);
-
-
-    const dotActiveIdentity = dottore.identities.filter(identity => identity.status === true)[0];
-    const pazActiveIdentity = paziente.identities.filter(identity => identity.status === true)[0]
-
-    if((dotActiveIdentity.fingerprint === this.sender && cartellaclinica.consenso) || pazActiveIdentity.fingerprint === this.sender){
-      return cartellaclinica;
-    }else{
-      throw new Error(`Identity ${this.sender} is not allowed to views this certificate`);
-    }
-    //return await Cartellaclinica.getOne(id);
-  }
-  @Invokable()
   public async cambiaconsenso(
     @Param(yup.string())
     id: string
@@ -132,10 +91,59 @@ export class CartellaclinicaController extends ConvectorController {
     const pazienteCurrentIdentity = paziente.identities.filter(identity => identity.status === true)[0]; 
    
     if (pazienteCurrentIdentity.fingerprint === this.sender) { // se è la stessa persona posso revocare consenso alla cartella
-      cartellaclinica.consenso = ! cartellaclinica.consenso;
+      cartellaclinica.consenso = !cartellaclinica.consenso;
       await cartellaclinica.save();
     } else {
       throw new Error(`Identity ${this.sender} is not allowed to update ${pazienteCurrentIdentity} cartellaclinica just can`);
     }
+  }
+  
+  @Invokable()
+  public async get(
+    @Param(yup.string())
+    id: string
+  ) {
+    let cartellaclinica = await Cartellaclinica.getOne(id);
+    let dottore = await Personale.getOne(cartellaclinica.dottoreID);
+    let paziente = await Personale.getOne(cartellaclinica.pazienteID);
+
+
+    const dotActiveIdentity = dottore.identities.filter(identity => identity.status === true)[0];
+    const pazActiveIdentity = paziente.identities.filter(identity => identity.status === true)[0]
+
+    if((dotActiveIdentity.fingerprint === this.sender && cartellaclinica.consenso) || pazActiveIdentity.fingerprint === this.sender){
+      return cartellaclinica;
+    }else{
+      throw new Error(`Identity ${this.sender} is not allowed to views this certificate`);
+    }
+    //return await Cartellaclinica.getOne(id);
+  }
+
+  @Invokable()
+  public async getByUsername(
+    @Param(yup.string())
+    pazienteid: string,
+  ) {
+    const exists = await Cartellaclinica.query(Cartellaclinica, {
+      selector: {
+        type: 'io.worldsibu.cartellaclinica',
+        ['pazienteID']: pazienteid,
+      }
+    });
+    if ((exists as Cartellaclinica[]).length <= 0) {
+      throw new Error('There isn\'t a person registered with that id');
+    }
+    let dottore = await Personale.getOne(exists[0].dottoreID);
+    let paziente = await Personale.getOne(exists[0].pazienteID);
+
+
+    const dotActiveIdentity = dottore.identities.filter(identity => identity.status === true)[0];
+    const pazActiveIdentity = paziente.identities.filter(identity => identity.status === true)[0]
+
+    if((dotActiveIdentity.fingerprint === this.sender && exists[0].consenso) || pazActiveIdentity.fingerprint === this.sender){
+      return exists[0];
+    }else{
+      throw new Error(`Identity ${this.sender} is not allowed to views this certificate`);
+    }    
   }
 }

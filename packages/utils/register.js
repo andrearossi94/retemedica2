@@ -1,5 +1,9 @@
-const Fabric_Client = require('fabric-client'); //interfaccia di chi invoca l'autorità
-const Fabric_CA_Client = require('fabric-ca-client'); //autorità che emette i certificati
+/*
+ * Registrazione ed Enroll di un utente
+ */
+
+const Fabric_Client = require('fabric-client');
+const Fabric_CA_Client = require('fabric-ca-client');
 
 const os = require('os');
 const path = require('path');
@@ -10,11 +14,24 @@ let admin_user = null;
 let member_user = null;
 const homedir = os.homedir();
 const hurleyIdentityPath = path.resolve(homedir, 'hyperledger-fabric-network/.hfc-org1');
+var myArgs = process.argv.slice(2);
 
+console.log(myArgs[0]);
+let name_user = 'user1';
+let per_level = 'member';
+let specializzazione = 'ortopedico';
 console.log('Store path:' + hurleyIdentityPath);
+if(typeof myArgs[0] != 'undefined'){
+    name_user=myArgs[0];
+}
+if(typeof myArgs[1] !== 'undefined'){ //si riferisce al ruolo, quindi dottore o paziente
+    per_level = myArgs[1];
+}
+if(typeof myArgs[2] !== 'undefined'){ //si riferisce alla patologia/specializz.
+    specializzazione = myArgs[2];
+}
 
-if(process.argv.length>=4){
-    // create the key value store as defined in the fabric-client/config/default.json 'key-value-store' setting
+// create the key value store as defined in the fabric-client/config/default.json 'key-value-store' setting
 Fabric_Client.newDefaultKeyValueStore({
     path: hurleyIdentityPath
 }).then((state_store) => {
@@ -42,24 +59,18 @@ Fabric_Client.newDefaultKeyValueStore({
 
     // at this point we should have the admin user
     // first need to register the user with the CA server
-    var ruolo = process.argv[2];
-    var patologia = process.argv[3];
-    var date = new Date();
-    var timestamp = date.getTime();
-    var nuovoEnroll = "User" + timestamp;
-    console.log(timestamp, nuovoEnroll);
-
-    return fabric_ca_client.register({ enrollmentID: 'dottore2', attrs: [{ ruolo: ruolo, ecert:true, patologia: patologia, ecert: true }], role: 'client' }, admin_user);
+    return fabric_ca_client.register({ enrollmentID: name_user, roles: per_level, attrs: [{ name: "Occupation", value: specializzazione, ecert: true }] }, admin_user);
 }).then((secret) => {
     // next we need to enroll the user with CA server
-    console.log('Successfully registered chaincodeAdmin - secret:' + secret);
+    console.log('Successfully registered - sec : '+name_user+' with organization : ' + per_level);
 
-    return fabric_ca_client.enroll({ enrollmentID: 'dottore2', enrollmentSecret: secret });
+    return fabric_ca_client.enroll({ enrollmentID: name_user, enrollmentSecret: secret, attr_reqs: [{ name: "Occupation", optional: false }] });
 }).then((enrollment) => {
-    console.log('Successfully enrolled member user "chaincodeAdmin" ');
+    console.log('Successfully enrolled member user : ' + name_user);
     return fabric_client.createUser({
-        username: 'dottore2',
+        username: name_user,
         mspid: 'org1MSP',
+        //roles: per_level,
         cryptoContent: { privateKeyPEM: enrollment.key.toBytes(), signedCertPEM: enrollment.certificate }
     });
 }).then((user) => {
@@ -67,7 +78,7 @@ Fabric_Client.newDefaultKeyValueStore({
 
     return fabric_client.setUserContext(member_user);
 }).then(() => {
-    console.log('chaincodeAdmin was successfully registered and enrolled and is ready to interact with the fabric network');
+    console.log(name_user + ' was successfully registered and enrolled and is ready to interact with the fabric network');
 
 }).catch((err) => {
     console.error('Failed to register: ' + err);
@@ -76,7 +87,3 @@ Fabric_Client.newDefaultKeyValueStore({
             'Try again after deleting the contents of the store directory ' + hurleyIdentityPath);
     }
 });
-}else{
-    console.error('Non abbastanza pamaretri, deve essere ruolo e patologia in questo ordine');
-}
-

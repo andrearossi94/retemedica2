@@ -5,7 +5,8 @@ import {
   ConvectorController,
   Invokable,
   Param,
-  BaseStorage
+  BaseStorage,
+  FlatConvectorModel
 } from '@worldsibu/convector-core';
 
 import { ChaincodeTx } from '@worldsibu/convector-platform-fabric';
@@ -13,8 +14,13 @@ import { ChaincodeTx } from '@worldsibu/convector-platform-fabric';
 import { Personale } from './personale.model';
 import { ClientIdentity } from 'fabric-shim';
 
+
 @Controller('personale')
-export class PersonaleController extends ConvectorController<ChaincodeTx> {
+export class PersonaleController extends ConvectorController {
+  get fullIdentity(): ClientIdentity {
+    const stub = (BaseStorage.current as any).stubHelper;
+    return new ClientIdentity(stub.getStub());
+  };
   
 
   @Invokable()
@@ -22,39 +28,19 @@ export class PersonaleController extends ConvectorController<ChaincodeTx> {
     @Param(Personale)
     personale: Personale
 
-   /* @Param(yup.string())
-    id: string,
-    @Param(yup.string())
-    nome: string,
-    @Param(yup.string())
-    cognome: string,
-    @Param(yup.string())
-    cognome: string,*/
-    /*@Param(yup.string())
-    pato: string*/
   ) {
     // Retrieve to see if exists
-    const existing = await Personale.getOne(personale.id);  //si dovrebbe lasciare a personale e non dottore
-
+    const existing = await Personale.getOne(personale.id);
     if (!existing || !existing.id) {
-      //let personale = new Personale();
-      /*personale.id = id;
-      personale.nome = nome;
-      personale.cognome = cognome;*/
-      //personale.patologia = pato
-      
-      /*const existsUsername = await Personale.query(Personale, {
+      const exists = await Personale.query(Personale, {
         selector: {
-          type: 'io.worldsibu.examples.personale',
-          username: personale.username,
-          /*personale: {
-            id: personale.id
-          }
+          type: 'io.worldsibu.personale',
+          ['username']: personale.username,
         }
       });
-      if (existsUsername /*|| !existing.id ) {
+      if ((exists as Personale[]).length > 0) {
         throw new Error('There is a person registered with that username already');
-      }*/
+      }
 
       personale.msp = this.tx.identity.getMSPID();
       // Create a new identity
@@ -68,20 +54,22 @@ export class PersonaleController extends ConvectorController<ChaincodeTx> {
       throw new Error('this paziente exists already');
     }
   }
-
+  
 
   @Invokable()
   public async get(
     @Param(yup.string())
     id: string
   ) {
-    //let personale = await Personale.getOne(id);    
-    let persona = await Personale.getOne(id);
-    if(!!persona){
-      return persona;
-    }else{
-      throw new Error(`Identity does not exist`);
+    const existing = await Personale.getOne(id);
+    if (!existing || !existing.id) {
+      throw new Error(`No identity exists with that ID ${id}`);
     }
-    //return await Cartellaclinica.getOne(id);
+    return existing;
+  }
+
+  @Invokable()
+  public async getAll(): Promise<FlatConvectorModel<Personale>[]> {
+    return (await Personale.getAll('io.worldsibu.personale')).map(personale => personale.toJSON() as any);
   }
 }
