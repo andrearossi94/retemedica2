@@ -32,6 +32,10 @@ export class Cartellaclinica extends ConvectorModel<Cartellaclinica> {
   @Validate(yup.boolean())
   public consenso: boolean;
 
+  @ReadOnly()
+  @Validate(yup.string())
+  public msp: string;
+
   /*@ReadOnly()
   @Required()
   @Validate(yup.number())

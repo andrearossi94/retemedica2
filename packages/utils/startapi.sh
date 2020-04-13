@@ -16,6 +16,9 @@ sleep 1
 echo "Dovrebbe dare errore"
 curl http://localhost:8000/cartellaclinica/get/Cart22
 echo "°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°"
+
+curl http://localhost:8000/cartellaclinica/getByUsername/Paz2
+
 echo "Test cambio consenso di una cartella clinica"
 echo "Dovrebbe funzionare"
 curl -H "Content-Type: application/json" --request POST --data '{ "id":"Cart33" }' http://localhost:8000/cartellaclinica/cambiaconsenso

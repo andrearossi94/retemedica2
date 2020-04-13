@@ -7,10 +7,12 @@
         "importHelpers": true,
         "experimentalDecorators": true,
         "removeComments": true,
+        
         "lib": [
             "es2015"
         ],
         "outDir": "./dist",
-        "rootDir": "./src"
+        "rootDir": "./src",
+        "skipLibCheck": true
     }
 }

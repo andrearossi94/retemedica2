@@ -1,26 +1,32 @@
 import { join, resolve } from "path";
-import { keyStore, identityName, channel, chaincode, networkProfile, identityId } from './env';
-import * as fs from 'fs';
+import { keyStore, channel, chaincode, networkProfile } from './env';
+//import * as fs from 'fs';
 import { FabricControllerAdapter } from '@worldsibu/convector-adapter-fabric';
-import { ClientFactory } from '@worldsibu/convector-core';
+/*import { ClientFactory } from '@worldsibu/convector-core';
 import { PersonaleController } from 'personale-cc';
-import { CartellaclinicaController } from 'cartellaclinica-cc';
+import { CartellaclinicaController } from 'cartellaclinica-cc'; */
 
 
-const adapter = new FabricControllerAdapter({
-    txTimeout: 300000,
-    user: identityName,
-    channel,
-    chaincode,
-    keyStore: resolve(__dirname, keyStore),
-    networkProfile: resolve(__dirname, networkProfile)
-    // userMspPath: keyStore
-});
+export async function getAdapter(identityName, identityOrg) {
+    const keystorePath = keyStore(identityOrg);
+    const networkProfilePath = networkProfile(identityOrg);
 
-export const initAdapter = adapter.init();
+    let adapter = new FabricControllerAdapter({
+        txTimeout: 300000,
+        user: identityName,
+        channel: channel,
+        chaincode: chaincode,
+        keyStore: resolve(__dirname, keystorePath),
+        networkProfile: resolve(__dirname, networkProfilePath),
+        userMspPath: resolve(__dirname, keystorePath)
+    });
 
+    await adapter.init();
 
-export const PersonaleControllerBackEnd = 
+    return adapter;
+}
+
+/*export const PersonaleControllerBackEnd = 
     ClientFactory(PersonaleController, adapter);
 
 export const CartellaclinicaControllerBackEnd = 
@@ -35,6 +41,5 @@ fs.readFile(contextPath, 'utf8', async function (err, data) {
     } else {
         console.log('Context path with cryptographic materials exists');
     }
-});
-
+});*/
     

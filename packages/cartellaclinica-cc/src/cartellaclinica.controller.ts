@@ -33,11 +33,13 @@ export class CartellaclinicaController extends ConvectorController {
     const dottoreCurrentIdentity = dottore.identities.filter(identity => identity.status === true)[0];
    
     if (dottoreCurrentIdentity.fingerprint === this.sender) {      
+      
+      cartellaclinica.msp = this.tx.identity.getMSPID();
       await cartellaclinica.save();
     } else {
       throw new Error(`Identity ${this.sender} is not allowed to update ${dottoreCurrentIdentity} cartellaclinica just can`);
     }
-    ///await cartellaclinica.save();
+    //await cartellaclinica.save();
   }
 
   @Invokable()
@@ -62,6 +64,7 @@ export class CartellaclinicaController extends ConvectorController {
     const dottoreCurrentIdentity = dottore.identities.filter(identity => identity.status === true)[0];
    
     if (dottoreCurrentIdentity.fingerprint === this.sender) {
+      
       cartellaclinica.stato = !cartellaclinica.stato;
       await cartellaclinica.save();
     } else {
@@ -91,8 +94,10 @@ export class CartellaclinicaController extends ConvectorController {
     const pazienteCurrentIdentity = paziente.identities.filter(identity => identity.status === true)[0]; 
    
     if (pazienteCurrentIdentity.fingerprint === this.sender) { // se è la stessa persona posso revocare consenso alla cartella
+      
       cartellaclinica.consenso = !cartellaclinica.consenso;
       await cartellaclinica.save();
+      
     } else {
       throw new Error(`Identity ${this.sender} is not allowed to update ${pazienteCurrentIdentity} cartellaclinica just can`);
     }
