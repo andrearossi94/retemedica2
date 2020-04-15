@@ -23,7 +23,7 @@ hurl invoke cartellaclinica cartellaclinica_cambiaconsenso "Cart1" "ab1996" "and
 echo "errore: user o pass errati"
 sleep 5
 hurl invoke cartellaclinica cartellaclinica_cambiaconsenso "Cart1" "ab1996" "andrea" -u paziente1
-echo "°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°"
+echo "°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°"
 sleep 5
 echo"errore: persona sbagliata"
 hurl invoke cartellaclinica cartellaclinica_cambiaconsenso "Cart1" "mr1976" "mario123" -u dottore1
