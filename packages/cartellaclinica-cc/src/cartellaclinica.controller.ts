@@ -62,7 +62,7 @@ export class CartellaclinicaController extends ConvectorController {
   }
 
   @Invokable()
-  public async degenza( //cambio stato cartellaclinica : guarito o no
+  public async degenza( //change state of cartellaclinica : true = patience he is not healed, false = healed
     @Param(yup.string())
     id: string,
     @Param(yup.string())
@@ -84,24 +84,25 @@ export class CartellaclinicaController extends ConvectorController {
     }
     const realdoctor = exists[0].identities.filter(identity => identity.status === true)[0];
 
+    // check if the credential are correct and the fingerprint is the same as the one who calls the function 
     if(exists[0].username === username && exists[0].password === password && realdoctor.fingerprint === this.sender){
-      let cartellaclinica = await Cartellaclinica.getOne(id);
+      let cartellaclinica = await Cartellaclinica.getOne(id); //take the medical record
     
-      if (!cartellaclinica || !cartellaclinica.id) {
+      if (!cartellaclinica || !cartellaclinica.id) { //check if exists
         throw new Error(`Cartellaclinica with id ${id} does not exist`);
       }
       //const dottoreID = cartellaclinica.dottoreID;
-      let dottore = await Personale.getOne(cartellaclinica.dottoreID);
+      let dottore = await Personale.getOne(cartellaclinica.dottoreID); //take doctorID
       
-      if (!dottore || !dottore.identities) {
+      if (!dottore || !dottore.identities) { //check if exists
         throw new Error('Referenced owner personale does not exist in the ledger');
       }
 
       const dottoreCurrentIdentity = dottore.identities.filter(identity => identity.status === true)[0];
     
-      if (dottoreCurrentIdentity.fingerprint === this.sender) {
+      if (dottoreCurrentIdentity.fingerprint === this.sender) { //if fingerprint is equal to this.sender
         
-        cartellaclinica.stato = !cartellaclinica.stato;
+        cartellaclinica.stato = !cartellaclinica.stato; //change status of medical record, patience has healed so variable degenza = false.
         await cartellaclinica.save();
       } else {
         throw new Error(`Identity ${this.sender} is not allowed to update ${dottoreCurrentIdentity} cartellaclinica just can`);
@@ -133,23 +134,23 @@ export class CartellaclinicaController extends ConvectorController {
     const realpatie = exists[0].identities.filter(identity => identity.status === true)[0];
 
     if(exists[0].username === username && exists[0].password === password && realpatie.fingerprint === this.sender){
-      let cartellaclinica = await Cartellaclinica.getOne(id); //prende una cartella 
+      let cartellaclinica = await Cartellaclinica.getOne(id); //take a medical record
       
-      if (!cartellaclinica || !cartellaclinica.id) {
+      if (!cartellaclinica || !cartellaclinica.id) { //check if the medical record exist
         throw new Error(`Cartellaclinica with id ${id} does not exist`);
       }
       
-      let paziente = await Personale.getOne(cartellaclinica.pazienteID); //estrapolo id del paziente
+      let paziente = await Personale.getOne(cartellaclinica.pazienteID); //if exist, take patience id
       
-      if (!paziente || !paziente.identities) {
+      if (!paziente || !paziente.identities) { //check if patience exists
         throw new Error('Referenced owner personale does not exist in the ledger');
       }
 
       const pazienteCurrentIdentity = paziente.identities.filter(identity => identity.status === true)[0]; 
     
-      if (pazienteCurrentIdentity.fingerprint === this.sender) { // se è la stessa persona posso revocare consenso alla cartella
+      if (pazienteCurrentIdentity.fingerprint === this.sender) { // if he is the same person, he can revocate the consensous to his medical record
         
-        cartellaclinica.consenso = !cartellaclinica.consenso;
+        cartellaclinica.consenso = !cartellaclinica.consenso; //revocate consensous , conseso = false.
         await cartellaclinica.save();
         
       } else {
@@ -190,13 +191,14 @@ export class CartellaclinicaController extends ConvectorController {
 
       const dotActiveIdentity = dottore.identities.filter(identity => identity.status === true)[0];
       const pazActiveIdentity = paziente.identities.filter(identity => identity.status === true)[0]
-
+      
+      //check if the fingerprint of patience or doctor is equal to this.sender
       if((dotActiveIdentity.fingerprint === this.sender && cartellaclinica.consenso) || pazActiveIdentity.fingerprint === this.sender){
         return cartellaclinica;
-      }else{
+      }else{ 
         throw new Error(`Identity ${this.sender} is not allowed to views this certificate`);
       }
-    }else{
+    }else{ //error wrong user password or fingerpint
       throw new Error(`401 Unauthorized ${username} should be ${exists[0].username} or ${password} should be ${exists[0].password} or ${this.sender} should be ${realperson.fingerprint}`);
     }
   }
