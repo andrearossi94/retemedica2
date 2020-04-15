@@ -13,7 +13,7 @@ export class x509Identities extends ConvectorModel<x509Identities>{
   @Required()
   fingerprint: string;
 }
-export class Personale extends ConvectorModel<Personale> {     // 2 tipi di personale: paziente e dottore
+export class Personale extends ConvectorModel<Personale> {                                // 2 tipi di personale: paziente e dottore
   @ReadOnly()
   public readonly type = 'io.worldsibu.personale';
 
