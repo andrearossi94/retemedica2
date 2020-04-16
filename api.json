@@ -31,12 +31,12 @@
     },
     {
         "function": "get",
-        "verb": "get",
+        "verb": "post",
         "controller": "CartellaclinicaController"
     },
     {
         "function": "getByUsername",
-        "verb": "get",
+        "verb": "post",
         "controller": "CartellaclinicaController"
     }
 ]
